@@ -15,8 +15,6 @@ This plant disease classification system is specifically designed to support the
 
 ### **Women's Agricultural Cooperatives**
 - **Accessible Technology**: User-friendly interface designed for agricultural cooperatives
-- **Mobile-First Approach**: Works on smartphones commonly used by farmers
-- **Local Language Support**: Designed to be adaptable for local language interfaces
 
 ### **Sustainable Agriculture**
 - **Early Disease Detection**: Prevents crop losses through timely intervention
@@ -29,19 +27,16 @@ This plant disease classification system is specifically designed to support the
 - **Real-time Disease Detection**: Instant classification of plant health status
 - **Batch Processing**: Handle multiple images simultaneously
 - **High Accuracy**: Trained on comprehensive plant disease datasets
-- **Mobile-Friendly**: Responsive design for field use
 
 ### **Advanced Capabilities**
 - **Model Retraining**: Continuous improvement with new data
 - **Analytics Dashboard**: Comprehensive insights and reporting
 - **API Integration**: RESTful API for third-party applications
-- **Prediction Logging**: Detailed audit trail for compliance
 
 ### **User Experience**
 - **Intuitive Interface**: Streamlit-based web application
 - **Real-time Feedback**: Instant prediction results with confidence scores
 - **Data Visualization**: Interactive charts and analytics
-- **Export Capabilities**: Download reports and logs
 
 ## 📊 Technical Architecture
 
@@ -307,12 +302,4 @@ For support and questions:
 - **Integration APIs**: Weather data and market prices
 - **Blockchain Integration**: Secure loan application tracking
 
-### **Research Areas**
-- **Multi-crop Support**: Expand beyond current plant types
-- **Disease Severity Assessment**: Quantify disease impact
-- **Treatment Recommendations**: AI-powered treatment suggestions
-- **Climate Adaptation**: Region-specific model optimization
-
----
-
-**Built with ❤️ for Agricultural Empowerment**
+ML PIPELINE VIDEO DEMO: https://drive.google.com/file/d/1dyZ8gYsww3Iu5xICa3nCgOHpaYLRRZBw/view?usp=sharing
