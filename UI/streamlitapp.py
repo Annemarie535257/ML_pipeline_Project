@@ -23,8 +23,8 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# API configuration — point at your Render-deployed Flask service
-API_BASE_URL = "https://ml-pipeline-project.onrender.com"
+# API configuration
+API_BASE_URL = "http://127.0.0.1:5000"
 
 def check_api_health():
     """Check if the API is running"""
@@ -66,34 +66,31 @@ def predict_image(image_file):
     """Make prediction on uploaded image"""
     try:
         files = {'image': image_file}
-        response = requests.post(f"{API_BASE_URL}/predict", files=files)
+        response = requests.post(f"{API_BASE_URL}/predict", files=files, timeout=30)
         if response.status_code == 200:
             return response.json()
-        return None
-    except:
-        return None
+        else:
+            # Log the error response
+            print(f"API Error: {response.status_code} - {response.text}")
+            return {'error': f'API returned status {response.status_code}'}
+    except requests.exceptions.ConnectionError:
+        return {'error': 'Connection to API server failed'}
+    except requests.exceptions.Timeout:
+        return {'error': 'Request timed out'}
+    except Exception as e:
+        print(f"Prediction error: {e}")
+        return {'error': str(e)}
 
 def upload_data_for_retraining(zip_file):
     """Upload data for retraining"""
     try:
         files = {'data': zip_file}
-        response = requests.post(f"{API_BASE_URL}/upload", files=files, timeout=60)
-        
+        response = requests.post(f"{API_BASE_URL}/upload", files=files)
         if response.status_code == 200:
             return response.json()
-        else:
-            # Return error details
-            try:
-                error_data = response.json()
-                return {'error': error_data.get('error', f'HTTP {response.status_code}')}
-            except:
-                return {'error': f'HTTP {response.status_code}: {response.text}'}
-    except requests.exceptions.Timeout:
-        return {'error': 'Upload timeout - file may be too large'}
-    except requests.exceptions.ConnectionError:
-        return {'error': 'Connection error - API server may be down'}
-    except Exception as e:
-        return {'error': f'Upload failed: {str(e)}'}
+        return None
+    except:
+        return None
 
 def trigger_retraining(data_path):
     """Trigger model retraining"""
@@ -236,7 +233,7 @@ def show_dashboard():
         col1, col2 = st.columns([1, 1])
         
         with col1:
-            st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
+            st.image(uploaded_file, caption="Uploaded Image", use_container_width=True)
         
         with col2:
             if st.button("🔮 Predict"):
@@ -257,7 +254,7 @@ def show_dashboard():
                     fig.update_layout(title="Prediction Confidence", yaxis_title="Confidence")
                     st.plotly_chart(fig, use_container_width=True)
                 else:
-                    st.error("Prediction failed")
+                    st.error(f"Prediction failed: {result.get('error', 'Unknown error') if result else 'No response from API'}")
 
 def show_prediction():
     """Show the prediction page"""
@@ -271,7 +268,7 @@ def show_prediction():
         col1, col2 = st.columns([1, 1])
         
         with col1:
-            st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
+            st.image(uploaded_file, caption="Uploaded Image", use_container_width=True)
         
         with col2:
             if st.button("🔮 Predict"):
@@ -295,7 +292,7 @@ def show_prediction():
                         fig.update_layout(title="Class Probabilities")
                         st.plotly_chart(fig, use_container_width=True)
                 else:
-                    st.error("Prediction failed")
+                    st.error(f"Prediction failed: {result.get('error', 'Unknown error') if result else 'No response from API'}")
     
     # Batch prediction
     st.subheader("Batch Prediction")
@@ -311,13 +308,26 @@ def show_prediction():
                 if result:
                     result['filename'] = file.name
                     results.append(result)
+                else:
+                    # Add error result for failed predictions
+                    results.append({
+                        'filename': file.name,
+                        'error': 'No response from API',
+                        'class': None,
+                        'confidence': 0.0,
+                        'processing_time': 0.0
+                    })
                 
                 progress_bar.progress((i + 1) / len(uploaded_files))
             
             if results:
                 # Display results in a table
                 df = pd.DataFrame(results)
-                st.dataframe(df[['filename', 'class', 'confidence', 'processing_time']])
+                # Show all columns including errors
+                display_columns = ['filename', 'class', 'confidence', 'processing_time']
+                if 'error' in df.columns:
+                    display_columns.append('error')
+                st.dataframe(df[display_columns])
                 
                 # Summary statistics
                 st.subheader("Batch Prediction Summary")
