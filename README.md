@@ -11,7 +11,7 @@ This plant disease classification system is specifically designed to support the
 ### **Financial Empowerment Through Technology**
 - **Loan Application Support**: Provides scientific evidence of crop health status for loan applications
 - **Risk Assessment**: Helps financial institutions assess agricultural risk through objective plant health data
-- **Documentation**: Generates detailed reports for loan documentation and compliance
+
 
 ### **Women's Agricultural Cooperatives**
 - **Accessible Technology**: User-friendly interface designed for agricultural cooperatives
