@@ -22,4 +22,4 @@ services:
       - key: PYTHON_VERSION
         value: 3.11.9
       - key: API_BASE_URL
-        value: https://plant-disease-api.onrender.com  # Update this with your actual API service URL
+        value: https://ml-pipeline-project.onrender.com  # Update this with your actual API service URL
