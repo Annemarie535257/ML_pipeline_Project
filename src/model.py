@@ -83,6 +83,8 @@ class PlantDiseaseClassifier:
             layers.RandomZoom(0.1),
         ])
         
+        # Input layer
+        inputs = layers.Input(shape=(*self.img_size, 3))
         x = data_augmentation(inputs)
         
         # Preprocessing layer
@@ -394,12 +396,12 @@ class PlantDiseaseClassifier:
             with open(metadata_path, 'r') as f:
                 metadata = json.load(f)
         else:
-            # Default metadata
+            # Default metadata - match the training notebook exactly
             metadata = {
                 'num_classes': 2,
-                'img_size': (224, 224),
-                'model_type': 'mobilenet',
-                'classes': ['Disease', 'Healthy']
+                'img_size': (128, 128),  # Match training notebook
+                'model_type': 'custom',   # Match training notebook
+                'classes': ['Healthy', 'Disease']  # Match training notebook exactly
             }
         
         # Create instance

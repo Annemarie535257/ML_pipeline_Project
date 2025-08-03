@@ -33,7 +33,7 @@ training_status = {'status': 'idle', 'progress': 0, 'message': ''}
 # Configuration
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
-MODEL_PATH = 'models/best_model.h5'
+MODEL_PATH = 'models/plant_disease_model (1).h5'
 PREPROCESSOR_PATH = 'models/preprocessor.pkl'
 
 # Create directories
@@ -435,4 +435,4 @@ if __name__ == '__main__':
     initialize_model()
     
     # Run the Flask app
-    app.run(host='0.0.0.0', port=5000, debug=True) 
+    # app.run(host='0.0.0.0', port=5000, debug=True) 

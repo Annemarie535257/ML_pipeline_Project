@@ -20,5 +20,258 @@
     "processing_time": 0.2926962375640869,
     "timestamp": "2025-08-01T12:46:21.985741",
     "model_path": "models/best_model.h5"
+  },
+  {
+    "class": "Disease",
+    "confidence": 0.5167607665061951,
+    "probabilities": [
+      0.48323923349380493,
+      0.5167607665061951
+    ],
+    "processing_time": 0.5181241035461426,
+    "timestamp": "2025-08-03T13:25:30.400490",
+    "model_path": "models/best_model.h5"
+  },
+  {
+    "class": "Healthy",
+    "confidence": 0.5167607665061951,
+    "probabilities": [
+      0.48323923349380493,
+      0.5167607665061951
+    ],
+    "processing_time": 0.6814379692077637,
+    "timestamp": "2025-08-03T13:30:32.983870",
+    "model_path": "models/best_model.h5"
+  },
+  {
+    "class": "Healthy",
+    "confidence": 0.5173081159591675,
+    "probabilities": [
+      0.4826918840408325,
+      0.5173081159591675
+    ],
+    "processing_time": 0.21151947975158691,
+    "timestamp": "2025-08-03T13:30:44.961363",
+    "model_path": "models/best_model.h5"
+  },
+  {
+    "class": "Healthy",
+    "confidence": 0.5173081159591675,
+    "probabilities": [
+      0.4826918840408325,
+      0.5173081159591675
+    ],
+    "processing_time": 0.19866418838500977,
+    "timestamp": "2025-08-03T13:30:46.870180",
+    "model_path": "models/best_model.h5"
+  },
+  {
+    "class": "Healthy",
+    "confidence": 0.5173081159591675,
+    "probabilities": [
+      0.4826918840408325,
+      0.5173081159591675
+    ],
+    "processing_time": 0.24278998374938965,
+    "timestamp": "2025-08-03T13:30:48.754245",
+    "model_path": "models/best_model.h5"
+  },
+  {
+    "class": "Disease",
+    "confidence": 0.5173081159591675,
+    "probabilities": [
+      0.4826918840408325,
+      0.5173081159591675
+    ],
+    "processing_time": 0.693556547164917,
+    "timestamp": "2025-08-03T13:38:12.989725",
+    "model_path": "models/best_model.h5"
+  },
+  {
+    "class": "Disease",
+    "confidence": 0.5167607665061951,
+    "probabilities": [
+      0.48323923349380493,
+      0.5167607665061951
+    ],
+    "processing_time": 0.2964017391204834,
+    "timestamp": "2025-08-03T13:38:42.843464",
+    "model_path": "models/best_model.h5"
+  },
+  {
+    "class": "Disease",
+    "confidence": 0.5167607665061951,
+    "probabilities": [
+      0.48323923349380493,
+      0.5167607665061951
+    ],
+    "processing_time": 0.34365200996398926,
+    "timestamp": "2025-08-03T13:38:45.810585",
+    "model_path": "models/best_model.h5"
+  },
+  {
+    "class": "Disease",
+    "confidence": 0.5167607665061951,
+    "probabilities": [
+      0.48323923349380493,
+      0.5167607665061951
+    ],
+    "processing_time": 0.11411070823669434,
+    "timestamp": "2025-08-03T13:38:46.484763",
+    "model_path": "models/best_model.h5"
+  },
+  {
+    "class": "Disease",
+    "confidence": 0.5167607665061951,
+    "probabilities": [
+      0.48323923349380493,
+      0.5167607665061951
+    ],
+    "processing_time": 0.31450653076171875,
+    "timestamp": "2025-08-03T13:38:46.685159",
+    "model_path": "models/best_model.h5"
+  },
+  {
+    "class": "Disease",
+    "confidence": 0.5167607665061951,
+    "probabilities": [
+      0.48323923349380493,
+      0.5167607665061951
+    ],
+    "processing_time": 0.2847301959991455,
+    "timestamp": "2025-08-03T13:38:51.672583",
+    "model_path": "models/best_model.h5"
+  },
+  {
+    "class": "Disease",
+    "confidence": 0.5167607665061951,
+    "probabilities": [
+      0.48323923349380493,
+      0.5167607665061951
+    ],
+    "processing_time": 0.3243098258972168,
+    "timestamp": "2025-08-03T13:39:08.907802",
+    "model_path": "models/best_model.h5"
+  },
+  {
+    "class": "Disease",
+    "confidence": 0.5167607665061951,
+    "probabilities": [
+      0.48323923349380493,
+      0.5167607665061951
+    ],
+    "processing_time": 0.3337423801422119,
+    "timestamp": "2025-08-03T13:40:18.728450",
+    "model_path": "models/best_model.h5"
+  },
+  {
+    "class": "Disease",
+    "confidence": 0.5167607665061951,
+    "probabilities": [
+      0.48323923349380493,
+      0.5167607665061951
+    ],
+    "processing_time": 0.24233031272888184,
+    "timestamp": "2025-08-03T13:56:19.746829",
+    "model_path": "models/best_model.h5"
+  },
+  {
+    "class": "Disease",
+    "confidence": 0.9940063953399658,
+    "probabilities": [
+      0.005993576720356941,
+      0.9940063953399658
+    ],
+    "processing_time": 0.6595175266265869,
+    "timestamp": "2025-08-03T14:40:59.651480",
+    "model_path": "models/plant_disease_model (1).h5"
+  },
+  {
+    "class": "Healthy",
+    "confidence": 0.6988682150840759,
+    "probabilities": [
+      0.6988682150840759,
+      0.30113181471824646
+    ],
+    "processing_time": 0.258453369140625,
+    "timestamp": "2025-08-03T14:41:21.368658",
+    "model_path": "models/plant_disease_model (1).h5"
+  },
+  {
+    "class": "Disease",
+    "confidence": 0.9940063953399658,
+    "probabilities": [
+      0.005993576720356941,
+      0.9940063953399658
+    ],
+    "processing_time": 0.22307538986206055,
+    "timestamp": "2025-08-03T14:42:19.188373",
+    "model_path": "models/plant_disease_model (1).h5"
+  },
+  {
+    "class": "Healthy",
+    "confidence": 0.6988682150840759,
+    "probabilities": [
+      0.6988682150840759,
+      0.30113181471824646
+    ],
+    "processing_time": 0.28731799125671387,
+    "timestamp": "2025-08-03T14:42:19.507185",
+    "model_path": "models/plant_disease_model (1).h5"
+  },
+  {
+    "class": "Healthy",
+    "confidence": 0.6988682150840759,
+    "probabilities": [
+      0.6988682150840759,
+      0.30113181471824646
+    ],
+    "processing_time": 1.655651569366455,
+    "timestamp": "2025-08-03T15:12:13.027844",
+    "model_path": "models/plant_disease_model (1).h5"
+  },
+  {
+    "class": "Disease",
+    "confidence": 0.9940063953399658,
+    "probabilities": [
+      0.005993576720356941,
+      0.9940063953399658
+    ],
+    "processing_time": 0.8049333095550537,
+    "timestamp": "2025-08-03T15:12:39.569744",
+    "model_path": "models/plant_disease_model (1).h5"
+  },
+  {
+    "class": "Healthy",
+    "confidence": 0.6988682150840759,
+    "probabilities": [
+      0.6988682150840759,
+      0.30113181471824646
+    ],
+    "processing_time": 0.7010209560394287,
+    "timestamp": "2025-08-03T15:12:40.370856",
+    "model_path": "models/plant_disease_model (1).h5"
+  },
+  {
+    "class": "Healthy",
+    "confidence": 0.6988682150840759,
+    "probabilities": [
+      0.6988682150840759,
+      0.30113181471824646
+    ],
+    "processing_time": 0.5904693603515625,
+    "timestamp": "2025-08-03T15:13:15.303214",
+    "model_path": "models/plant_disease_model (1).h5"
+  },
+  {
+    "class": "Healthy",
+    "confidence": 0.9979311227798462,
+    "probabilities": [
+      0.9979311227798462,
+      0.0020689298398792744
+    ],
+    "processing_time": 1.2860667705535889,
+    "timestamp": "2025-08-03T15:16:28.235645",
+    "model_path": "models/plant_disease_model (1).h5"
   }
 ]
