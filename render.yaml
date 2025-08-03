@@ -1,6 +1,25 @@
 services:
+  # API Server
   - type: web
-    name: ML_PIPELINE_PROJECT
+    name: plant-disease-api
     env: python
+    plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: streamlit run api_server.py --server.port $PORT --server.headless true
+    startCommand: python api_server.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+    healthCheckPath: /health
+
+  # Streamlit App
+  - type: web
+    name: plant-disease-app
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run UI/streamlitapp.py --server.port $PORT --server.address 0.0.0.0
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: API_BASE_URL
+        value: https://plant-disease-api.onrender.com  # Update this with your actual API service URL

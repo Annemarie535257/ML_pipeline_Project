@@ -18,9 +18,31 @@ import shutil
 from PIL import Image
 import io
 
-# Auto-start API server functionality
+# API configuration - support both local and deployed environments
+def get_api_base_url():
+    """Get API base URL from environment or use default"""
+    # Check for deployed API URL from environment variable
+    deployed_api_url = os.environ.get('API_BASE_URL')
+    if deployed_api_url:
+        return deployed_api_url
+    
+    # Check for Render environment
+    render_api_url = os.environ.get('RENDER_API_URL')
+    if render_api_url:
+        return render_api_url
+    
+    # Default to local development
+    return "http://127.0.0.1:5000"
+
+API_BASE_URL = get_api_base_url()
+
+# Auto-start API server functionality (only for local development)
 def start_api_server():
-    """Start the API server in background"""
+    """Start the API server in background - only for local development"""
+    # Skip auto-start if we're in a deployed environment
+    if os.environ.get('RENDER') or os.environ.get('HEROKU') or os.environ.get('PORT'):
+        return True  # Assume API server is deployed separately
+    
     try:
         # Get the path to the parent directory (where api_server.py is located)
         current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -65,9 +87,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
-# API configuration
-API_BASE_URL = "http://127.0.0.1:5000"
 
 def check_api_health():
     """Check if the API is running"""
@@ -171,24 +190,38 @@ def main():
     st.title("🌱 Plant Disease Classification System")
     st.markdown("---")
     
-    # Auto-start API server with better feedback
-    with st.spinner("Starting API server..."):
-        if start_api_server():
-            st.success("✅ API server started successfully!")
-        else:
-            st.warning("⚠️ API server is not running. Please ensure `api_server.py` is in the parent directory.")
+    # Check if we're in a deployed environment
+    is_deployed = os.environ.get('RENDER') or os.environ.get('HEROKU') or os.environ.get('PORT')
+    
+    if is_deployed:
+        st.info("🚀 Running in deployed environment")
+        # Skip auto-start for deployed environments
+        api_started = True
+    else:
+        # Auto-start API server with better feedback (local development only)
+        with st.spinner("Starting API server..."):
+            api_started = start_api_server()
+            if api_started:
+                st.success("✅ API server started successfully!")
+            else:
+                st.warning("⚠️ API server is not running. Please ensure `api_server.py` is in the parent directory.")
     
     # Check API health with debugging
     api_healthy = check_api_health()
     
     # Add debugging information
     if not api_healthy:
-        st.error("⚠️ API server is not running. Please start the API server first.")
-        st.info("To start the API server, run: `python api_server.py`")
+        if is_deployed:
+            st.error("⚠️ API server is not available. Please ensure the API service is deployed and running.")
+            st.info("For deployment, you need to deploy both the Streamlit app and the API server as separate services.")
+        else:
+            st.error("⚠️ API server is not running. Please start the API server first.")
+            st.info("To start the API server, run: `python api_server.py`")
         
         # Debug information
         with st.expander("🔍 Debug Information"):
             st.write(f"**API URL:** {API_BASE_URL}")
+            st.write(f"**Deployed Environment:** {is_deployed}")
             try:
                 response = requests.get(f"{API_BASE_URL}/health", timeout=5)
                 st.write(f"**Response Status:** {response.status_code}")
