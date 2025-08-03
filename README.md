@@ -84,13 +84,12 @@ ML_pipeline_Project/
 ### **Prerequisites**
 - Python 3.8+
 - TensorFlow 2.x
-- CUDA (optional, for GPU acceleration)
 
 ### **Installation Steps**
 
 1. **Clone the Repository**
    ```bash
-   git clone <repository-url>
+   git clone <https://github.com/Annemarie535257/ML_pipeline_Project.git>
    cd ML_pipeline_Project
    ```
 
@@ -175,7 +174,7 @@ The system supports model retraining with new data:
 from src.model import PlantDiseaseClassifier
 
 # Load existing model
-classifier = PlantDiseaseClassifier.load_model('models/best_model.h5')
+classifier = PlantDiseaseClassifier.load_model('models/plant_disease_model.h5')
 
 # Retrain with new data
 history = classifier.retrain('path/to/new/data', epochs=10)
@@ -199,7 +198,7 @@ history = classifier.retrain('path/to/new/data', epochs=10)
 ### **Environment Variables**
 ```bash
 export FLASK_ENV=production
-export MODEL_PATH=models/best_model.h5
+export MODEL_PATH=models/petal_disease_model.h5
 export API_PORT=5000
 export STREAMLIT_PORT=8501
 ```
@@ -231,7 +230,7 @@ preprocessor = ImagePreprocessor()
 test_images, test_labels = preprocessor.load_data()
 
 # Evaluate model
-classifier = PlantDiseaseClassifier.load_model('models/best_model.h5')
+classifier = PlantDiseaseClassifier.load_model('models/plant_disease_model (1).h5')
 metrics = classifier.evaluate(test_images, test_labels)
 ```
 
@@ -260,38 +259,21 @@ metrics = classifier.evaluate(test_images, test_labels)
 }
 ```
 
-## 🤝 Contributing
-
-### **Development Setup**
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests
-5. Submit a pull request
-
-### **Code Standards**
-- Follow PEP 8 style guidelines
-- Add docstrings to all functions
-- Include type hints
-- Write unit tests for new features
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🙏 Acknowledgments
+##  Resources
 
 - **Dataset Source**: [Plant Disease Prediction Dataset](https://www.kaggle.com/datasets/dittakavinikhita/plant-disease-prediction-disease-and-healthy) by Dittakavinikhita
 - **Framework**: TensorFlow and Keras for deep learning
 - **UI Framework**: Streamlit for web interface
-- **Agricultural Partners**: Farmers and women cooperatives for feedback and testing
 
-## 📞 Support
+## Deployed web service
 
-For support and questions:
-- **Email**: support@agriempower.org
-- **Documentation**: [Wiki Link]
-- **Issues**: GitHub Issues page
+link: https://ml-pipeline-project-1.onrender.com/
+
+![alt text](image.png)
+
+## DEMO VIDEO
+
+ML PIPELINE VIDEO DEMO: https://drive.google.com/file/d/1dyZ8gYsww3Iu5xICa3nCgOHpaYLRRZBw/view?usp=sharing
 
 ## 🔮 Future Enhancements
 
@@ -301,5 +283,3 @@ For support and questions:
 - **Advanced Analytics**: Crop yield prediction
 - **Integration APIs**: Weather data and market prices
 - **Blockchain Integration**: Secure loan application tracking
-
-ML PIPELINE VIDEO DEMO: https://drive.google.com/file/d/1dyZ8gYsww3Iu5xICa3nCgOHpaYLRRZBw/view?usp=sharing
