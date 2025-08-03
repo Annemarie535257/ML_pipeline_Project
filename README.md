@@ -259,12 +259,6 @@ metrics = classifier.evaluate(test_images, test_labels)
 }
 ```
 
-##  Resources
-
-- **Dataset Source**: [Plant Disease Prediction Dataset](https://www.kaggle.com/datasets/dittakavinikhita/plant-disease-prediction-disease-and-healthy) by Dittakavinikhita
-- **Framework**: TensorFlow and Keras for deep learning
-- **UI Framework**: Streamlit for web interface
-
 ## Deployed web service
 
 link: https://ml-pipeline-project-1.onrender.com/
@@ -279,7 +273,4 @@ ML PIPELINE VIDEO DEMO: https://drive.google.com/file/d/1dyZ8gYsww3Iu5xICa3nCgOH
 
 ### **Planned Features**
 - **Multi-language Support**: Local language interfaces
-- **Offline Mode**: Mobile app with offline capabilities
 - **Advanced Analytics**: Crop yield prediction
-- **Integration APIs**: Weather data and market prices
-- **Blockchain Integration**: Secure loan application tracking
