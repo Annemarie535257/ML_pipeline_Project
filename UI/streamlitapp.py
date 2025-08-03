@@ -8,12 +8,55 @@ import numpy as np
 import time
 import json
 import os
+import subprocess
+import sys
+import threading
 from datetime import datetime, timedelta
 import zipfile
 import tempfile
 import shutil
 from PIL import Image
 import io
+
+# Auto-start API server functionality
+def start_api_server():
+    """Start the API server in background"""
+    try:
+        # Get the path to the parent directory (where api_server.py is located)
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        parent_dir = os.path.dirname(current_dir)
+        api_server_path = os.path.join(parent_dir, 'api_server.py')
+        
+        # Check if API server is already running
+        try:
+            response = requests.get("http://127.0.0.1:5000/health", timeout=2)
+            if response.status_code == 200:
+                return True  # Server is already running
+        except:
+            pass
+        
+        # Start API server in background
+        if os.path.exists(api_server_path):
+            # Use subprocess to start the API server
+            subprocess.Popen([sys.executable, api_server_path], 
+                           stdout=subprocess.DEVNULL, 
+                           stderr=subprocess.DEVNULL)
+            
+            # Wait a bit for the server to start
+            time.sleep(3)
+            
+            # Check if server started successfully
+            try:
+                response = requests.get("http://127.0.0.1:5000/health", timeout=5)
+                if response.status_code == 200:
+                    return True
+            except:
+                pass
+        
+        return False
+    except Exception as e:
+        st.error(f"Failed to start API server: {e}")
+        return False
 
 # Page configuration
 st.set_page_config(
@@ -127,6 +170,13 @@ def refresh_model():
 def main():
     st.title("🌱 Plant Disease Classification System")
     st.markdown("---")
+    
+    # Auto-start API server with better feedback
+    with st.spinner("Starting API server..."):
+        if start_api_server():
+            st.success("✅ API server started successfully!")
+        else:
+            st.warning("⚠️ API server is not running. Please ensure `api_server.py` is in the parent directory.")
     
     # Check API health with debugging
     api_healthy = check_api_health()
@@ -283,7 +333,7 @@ def show_prediction():
                     # Detailed probabilities
                     if 'probabilities' in result:
                         prob_data = pd.DataFrame({
-                            'Class': ['Disease', 'Healthy'],
+                            'Class': ['Healthy', 'Disease'],  # Fixed: match model class ordering
                             'Probability': result['probabilities']
                         })
                         
