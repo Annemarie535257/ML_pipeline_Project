@@ -144,6 +144,9 @@ with open('plant_image.jpg', 'rb') as f:
 files = [('images', open(f'image_{i}.jpg', 'rb')) for i in range(5)]
 response = requests.post('http://localhost:5000/predict/batch', files=files)
 results = response.json()['predictions']
+
+![alt text](image-1.png)
+
 ```
 
 ## 📈 Model Performance
