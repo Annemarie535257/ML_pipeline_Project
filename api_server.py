@@ -184,37 +184,107 @@ def get_stats():
 @app.route('/upload', methods=['POST'])
 def upload_data():
     """Upload new data for retraining"""
+    logger.info("Upload endpoint called")
+    
     if 'data' not in request.files:
+        logger.error("No 'data' file in request")
         return jsonify({'error': 'No data file provided'}), 400
     
     file = request.files['data']
+    logger.info(f"Received file: {file.filename}")
+    
     if file.filename == '':
+        logger.error("Empty filename")
         return jsonify({'error': 'No file selected'}), 400
     
     if not file.filename.endswith('.zip'):
+        logger.error(f"Invalid file type: {file.filename}")
         return jsonify({'error': 'Please upload a ZIP file'}), 400
     
     try:
+        # Create upload directory if it doesn't exist
+        os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+        
         # Save uploaded file
         zip_path = os.path.join(UPLOAD_FOLDER, secure_filename(file.filename))
+        logger.info(f"Saving file to: {zip_path}")
         file.save(zip_path)
         
         # Extract to temp directory
         temp_dir = os.path.join('temp_data', f'new_data_{int(time.time())}')
         os.makedirs(temp_dir, exist_ok=True)
+        logger.info(f"Extracting to: {temp_dir}")
         
         with zipfile.ZipFile(zip_path, 'r') as zip_ref:
             zip_ref.extractall(temp_dir)
         
         # Validate structure
         expected_classes = ['Disease', 'Healthy']
+        logger.info("Validating directory structure...")
+        
+        # Check for nested structure
+        found_classes = {}
+        for root, dirs, files in os.walk(temp_dir):
+            for class_name in expected_classes:
+                if class_name in dirs:
+                    class_dir = os.path.join(root, class_name)
+                    file_count = len([f for f in os.listdir(class_dir) if f.lower().endswith(('.jpg', '.jpeg', '.png'))])
+                    found_classes[class_name] = {
+                        'path': class_dir,
+                        'count': file_count
+                    }
+                    logger.info(f"Found {class_name} directory at {class_dir} with {file_count} images")
+        
+        # Check if we found all expected classes
+        missing_classes = []
+        for class_name in expected_classes:
+            if class_name not in found_classes:
+                missing_classes.append(class_name)
+                logger.error(f"Missing {class_name} directory")
+        
+        if missing_classes:
+            return jsonify({'error': f'Missing directories: {", ".join(missing_classes)}'}), 400
+        
+        # If we found nested structure, move files to expected location
+        if len(found_classes) == 2:
+            # Check if files are nested (not at root level)
+            root_level_found = all(
+                os.path.dirname(found_classes[cls]['path']) == temp_dir 
+                for cls in found_classes
+            )
+            
+            if not root_level_found:
+                logger.info("Detected nested structure, moving files to root level...")
+                # Create new structure at root level
+                for class_name, info in found_classes.items():
+                    source_dir = info['path']
+                    target_dir = os.path.join(temp_dir, class_name)
+                    
+                    # Move files from nested location to root level
+                    if not os.path.exists(target_dir):
+                        os.makedirs(target_dir)
+                    
+                    for file in os.listdir(source_dir):
+                        if file.lower().endswith(('.jpg', '.jpeg', '.png')):
+                            source_file = os.path.join(source_dir, file)
+                            target_file = os.path.join(target_dir, file)
+                            shutil.move(source_file, target_file)
+                    
+                    logger.info(f"Moved {class_name} files to {target_dir}")
+        
+        # Final validation
         for class_name in expected_classes:
             class_dir = os.path.join(temp_dir, class_name)
             if not os.path.exists(class_dir):
-                return jsonify({'error': f'Missing {class_name} directory in ZIP'}), 400
+                logger.error(f"Missing directory after processing: {class_dir}")
+                return jsonify({'error': f'Missing {class_name} directory after processing'}), 400
+            else:
+                file_count = len([f for f in os.listdir(class_dir) if f.lower().endswith(('.jpg', '.jpeg', '.png'))])
+                logger.info(f"Final validation: {class_name} directory has {file_count} images")
         
         # Clean up zip file
         os.remove(zip_path)
+        logger.info("Upload completed successfully")
         
         return jsonify({
             'status': 'success',
@@ -224,6 +294,8 @@ def upload_data():
         
     except Exception as e:
         logger.error(f"Upload error: {e}")
+        import traceback
+        logger.error(f"Traceback: {traceback.format_exc()}")
         return jsonify({'error': str(e)}), 500
 
 @app.route('/retrain', methods=['POST'])

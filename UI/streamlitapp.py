@@ -23,8 +23,8 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# API configuration
-API_BASE_URL = "http://127.0.0.1:5000"
+# API configuration — point at your Render-deployed Flask service
+API_BASE_URL = "https://ml-pipeline-project.onrender.com"
 
 def check_api_health():
     """Check if the API is running"""
@@ -77,12 +77,23 @@ def upload_data_for_retraining(zip_file):
     """Upload data for retraining"""
     try:
         files = {'data': zip_file}
-        response = requests.post(f"{API_BASE_URL}/upload", files=files)
+        response = requests.post(f"{API_BASE_URL}/upload", files=files, timeout=60)
+        
         if response.status_code == 200:
             return response.json()
-        return None
-    except:
-        return None
+        else:
+            # Return error details
+            try:
+                error_data = response.json()
+                return {'error': error_data.get('error', f'HTTP {response.status_code}')}
+            except:
+                return {'error': f'HTTP {response.status_code}: {response.text}'}
+    except requests.exceptions.Timeout:
+        return {'error': 'Upload timeout - file may be too large'}
+    except requests.exceptions.ConnectionError:
+        return {'error': 'Connection error - API server may be down'}
+    except Exception as e:
+        return {'error': f'Upload failed: {str(e)}'}
 
 def trigger_retraining(data_path):
     """Trigger model retraining"""
