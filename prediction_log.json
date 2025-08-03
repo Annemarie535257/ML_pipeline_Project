@@ -317,5 +317,16 @@
     "processing_time": 2.6190457344055176,
     "timestamp": "2025-08-03T17:04:18.824247",
     "model_path": "models/plant_disease_model (1).h5"
+  },
+  {
+    "class": "Healthy",
+    "confidence": 0.9999498128890991,
+    "probabilities": [
+      0.9999498128890991,
+      5.020266689825803e-05
+    ],
+    "processing_time": 1.233069896697998,
+    "timestamp": "2025-08-03T18:32:02.034491",
+    "model_path": "models/plant_disease_model (1).h5"
   }
 ]

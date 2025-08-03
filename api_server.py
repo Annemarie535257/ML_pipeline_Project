@@ -67,6 +67,9 @@ def initialize_model():
     except Exception as e:
         logger.error(f"Error initializing model: {e}")
 
+# Initialize on import so Gunicorn loads it
+initialize_model()        
+
 @app.route('/health', methods=['GET'])
 def health_check():
     """Health check endpoint"""
@@ -431,8 +434,7 @@ def download_logs():
     return send_file(log_file, as_attachment=True, download_name='prediction_logs.json')
 
 if __name__ == '__main__':
-    # Initialize model on startup
-    initialize_model()
+    
     
     # Run the Flask app
     app.run(host='0.0.0.0', port=5000, debug=True) 
