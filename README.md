@@ -270,8 +270,7 @@ link: https://ml-pipeline-project-1.onrender.com/
 
 ## DEMO VIDEO
 
-ML PIPELINE VIDEO DEMO: https://drive.google.com/file/d/1dyZ8gYsww3Iu5xICa3nCgOHpaYLRRZBw/view?usp=sharing
-
+ML PIPELINE VIDEO DEMO: https://youtu.be/VV2Nz3WIy-M
 ## 🔮 Future Enhancements
 
 ### **Planned Features**
